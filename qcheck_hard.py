@@ -99,28 +99,19 @@ def build_mail(nfspath, quotaname, current_usage, quota, configdict, quota_recip
             labname = quotaname.replace("jacs-","").capitalize()
             subject = '!!!Workstation Secondary Data Storage Alert!!!'
             body += 'Dear Janelia Workstation User,<br><br>'
-            print body
-            try: 
-                body += 'Your lab ({}) has reached its currently allocated storage limit of {} TB for secondary data. '\
+            body += 'Your lab ({}) has reached its currently allocated storage limit of {} TB for secondary data. '\
                     'Please see the Lab Quotas page (http://dataviz/lab-quotas/) '\
                     'for more information on your current limits. In order to allow us to continue to '\
                     'process your data in the Janelia workstation, we need you to perform one of the '\
                     'following remedial actions. <br><br>'.format(labname, sane_quota) 
-                print body
-            except Exception,excpt:
-                print excpt
             body += '1. Remove some of your older data that is no longer needed. This can be done in the Workstation and an '\
                     'example of how can be found on the wiki (http://wiki/wiki/display/JW/Purge+and+Block)<br><br>'
-            print body
             body += '2. Please submit a helpdesk ticket asking them to notify Scientific Computing Services that you would '\
                     'like to have your storage quota increased. Storage is billed to your lab in 5TB increments at a cost of $15/TB/month.<br><br>'
-            print body
             body += 'Failure to remedy this situation is preventing all future processing of LSMs in the Janelia Workstation for your lab. '\
                     'If you have any questions or concerns, '\
                     'please contact us at: jacs-pipeline@janelia.hhmi.org<br><br>'
-            print body
             body += 'Regards,<br><br>Janelia Workstation Team<br>'
-            print "built full: {}".format(body)
         elif emailtype == 'warn':
             subject = quotaname + " Quota Near Limit"
             body += "The usage on {} has reached {}% of the quota.<br>".format(nfspath, quota_recip['warn_percent'])
@@ -189,7 +180,6 @@ def process_quotas(rc,configdict,quota_recip,quotalist):
                 with open(checkfile,"a+") as f:
                     pass
                 try:
-                    print "building mail for {}".format(quotaname)
                     build_mail(nfspath, quotaname, usage, hquota, configdict, quota_recip[quotaname],emailtype)
                 except Exception, excpt:
                     excpt
