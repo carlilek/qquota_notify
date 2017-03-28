@@ -79,20 +79,21 @@ def build_mail(nfspath, quotaname, current_usage, quota, configdict, quota_recip
         body = ""
         if 'jacs' in quotaname and emailtype == 'warn':
             labname = quotaname.replace("jacs-","").capitalize()
-            subject = '!!!Workstation Secondary Data Storage Warning!!!'
+            subject = 'Workstation Secondary Data Storage Warning'
             body += 'Dear Janelia Workstation User,<br><br>'
-            body += 'Your lab ({}) has reached greater than {}% ({:.2f} TB/{} TB) of its currently allocated storage limit for secondary data. '\
+            body += 'This is a courtesy warning to let you know that your lab ({}) has reached greater than {}% ({:.2f} TB/{} TB) '\
+                    'of its currently allocated storage limit for secondary data. '\
                     'Please see the Lab Quotas page (http://dataviz/lab-quotas/) '\
-                    'for more information on your current limits. In order to allow us to continue to '\
-                    'process your data in the Janelia workstation, we need you to perform one of the '\
-                    'following remedial actions. <br><br>'.format(labname, quota_recip['warn_percent'], sane_current_usage, sane_quota) 
+                    'for more information on your current limits. At this time we would like to provide you with some options '\
+                    'to make sure that we can continue to process your data in the Janelia '\
+                    'workstation. <br><br>'.format(labname, quota_recip['warn_percent'], sane_current_usage, sane_quota) 
             body += '1. Remove some of your older data that is no longer needed. This can be done in the Workstation and an '\
                     'example of how can be found on the wiki (http://wiki/wiki/display/JW/Purge+and+Block)<br><br>'
             body += '2. Please submit a helpdesk ticket asking them to notify Scientific Computing Services that you would '\
                     'like to have your storage quota increased. Storage is billed to your lab in 5TB increments at a cost of $15/TB/month.<br><br>'
             body += 'Failure to remedy this situation before 98% of your storage quota is reached will prevent all future processing of '\
-                    'LSMs in the Janelia Workstation. If you have any questions or concerns, '\
-                    'please contact us at: jacs-pipeline@janelia.hhmi.org<br><br>'
+                    'LSMs in the Janelia Workstation. We hope this warning will provide you with enough time to prevent any down time. '\
+                    'If you have any questions or concerns, please contact us at: jacs-pipeline@janelia.hhmi.org<br><br>'
             body += 'Regards,<br><br>Janelia Workstation Team<br>'
             print "built warn"
         elif 'jacs' in quotaname and emailtype == 'full':
